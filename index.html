@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMG Systems - Portfolio</title>
+    <title>AMG Systems ⚡</title>
     <style>
         * {
             margin: 0;
@@ -13,9 +13,31 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             color: #333;
-            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
         }
         
         .container {
@@ -24,93 +46,376 @@
             padding: 20px;
         }
         
-        header {
+        /* Logo Section */
+        .logo-section {
             text-align: center;
             padding: 60px 20px;
-            background: #2c3e50;
-            color: white;
-            margin-bottom: 40px;
+            animation: fadeInDown 1s ease;
         }
         
-        header h1 {
-            font-size: 3em;
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo-box {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 60px;
+            border-radius: 30px;
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.3),
+                0 0 0 10px rgba(255,255,255,0.1);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .logo-icon {
+            font-size: 4em;
             margin-bottom: 10px;
-            font-weight: 300;
+            animation: bounce 1s ease infinite;
         }
         
-        header p {
-            font-size: 1.2em;
-            opacity: 0.9;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
+        .logo-text {
+            font-size: 3em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 5px;
+        }
+        
+        .tagline {
+            background: rgba(255,255,255,0.95);
+            display: inline-block;
+            padding: 20px 40px;
+            border-radius: 50px;
+            margin-top: 30px;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #555;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Projects Grid */
         .projects {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
-            margin-bottom: 40px;
+            margin: 50px 0;
         }
         
         .project-card {
-            background: white;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
             padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeInUp 0.8s ease both;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card:nth-child(1) { animation-delay: 0.2s; }
+        .project-card:nth-child(2) { animation-delay: 0.4s; }
+        .project-card:nth-child(3) { animation-delay: 0.6s; }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .project-card:hover::before {
+            transform: scaleX(1);
         }
         
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
         }
         
         .project-icon {
-            font-size: 4em;
+            font-size: 5em;
             margin-bottom: 20px;
+            display: block;
+            animation: wiggle 2s ease infinite;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        
+        .project-card:hover .project-icon {
+            animation: spin 0.5s ease;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
         .project-card h2 {
             font-size: 1.8em;
             margin-bottom: 10px;
-            color: #2c3e50;
-            font-weight: 400;
+            color: #333;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .divider {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 15px auto;
+            border-radius: 2px;
         }
         
         .project-card p {
             color: #666;
             margin-bottom: 25px;
             font-size: 1.1em;
+            font-weight: 500;
         }
         
-        .visit-btn {
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #667eea;
+            border: 3px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px 40px;
+            text-align: center;
+            margin: 50px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease 0.8s both;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::after {
+            content: '💼';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 8em;
+            opacity: 0.1;
+            animation: float-icon 6s ease-in-out infinite;
+        }
+        
+        @keyframes float-icon {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, -20px) rotate(10deg); }
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: 900;
+        }
+        
+        .cta-section .subtitle {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .price-tag {
             display: inline-block;
-            padding: 12px 30px;
-            background: #2c3e50;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 20px;
+            font-size: 1.5em;
+            font-weight: 800;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(17, 153, 142, 0.4);
+            animation: pulse-green 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-green {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
             color: white;
             text-decoration: none;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: background 0.3s ease;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.2em;
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            animation: bounce-in 1s ease 1s both;
         }
         
-        .visit-btn:hover {
-            background: #34495e;
+        @keyframes bounce-in {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
         }
         
+        .whatsapp-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(37, 211, 102, 0.6);
+        }
+        
+        .contact-info {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px dashed #ddd;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.2em;
+            color: #555;
+            font-weight: 600;
+        }
+        
+        .contact-item a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-item a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        /* Footer */
         footer {
             text-align: center;
             padding: 40px 20px;
-            background: #2c3e50;
             color: white;
+            font-size: 1.1em;
+            animation: fadeIn 1s ease 1.2s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         footer p {
-            opacity: 0.8;
+            opacity: 0.9;
         }
         
+        footer .heart {
+            display: inline-block;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            header h1 {
+            .logo-text {
                 font-size: 2em;
+            }
+            
+            .tagline {
+                font-size: 1.1em;
+                padding: 15px 25px;
             }
             
             .projects {
@@ -120,42 +425,102 @@
             .project-card {
                 padding: 30px 20px;
             }
+            
+            .cta-section h2 {
+                font-size: 1.8em;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>AMG Systems</h1>
-        <p>Complete Tech Solutions</p>
-    </header>
-    
     <div class="container">
-        <div class="projects">
-            <div class="project-card">
-                <div class="project-icon">🛍️</div>
-                <h2>AMG Perfume</h2>
-                <p>Luxury Oriental Fragrances</p>
-                <a href="https://amg-perfume.vercel.app" class="visit-btn" target="_blank">Visit Website</a>
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo-box">
+                <div class="logo-icon">⚡</div>
+                <div class="logo-text">AMG</div>
             </div>
-            
-            <div class="project-card">
-                <div class="project-icon">💻</div>
-                <h2>AMG Systems</h2>
-                <p>Complete Tech Solutions</p>
-                <a href="https://amg-systems.vercel.app" class="visit-btn" target="_blank">Visit Website</a>
-            </div>
-            
-            <div class="project-card">
-                <div class="project-icon">🍽️</div>
-                <h2>Al-Asalah Restaurant</h2>
-                <p>Authentic Taste in Every Bite</p>
-                <a href="https://restaurant-website-sooty-chi.vercel.app" class="visit-btn" target="_blank">Visit Website</a>
+            <div class="tagline">
+                🚀 We Build Cool Digital Stuff
             </div>
         </div>
+        
+        <!-- Projects -->
+        <div class="projects">
+            <div class="project-card">
+                <span class="project-icon">🛍️</span>
+                <h2>AMG Perfume</h2>
+                <div class="divider"></div>
+                <p>✨ Luxury Vibes & Fragrances</p>
+                <div class="btn-group">
+                    <a href="https://amg-perfume.vercel.app" class="btn btn-primary" target="_blank">
+                        Check It Out 👉
+                    </a>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <span class="project-icon">💻</span>
+                <h2>AMG Systems</h2>
+                <div class="divider"></div>
+                <p>🔧 Tech Magic & Solutions</p>
+                <div class="btn-group">
+                    <a href="https://amg-systems.vercel.app" class="btn btn-primary" target="_blank">
+                        See More 👀
+                    </a>
+                    <a href="https://amg-systems.vercel.app/services" class="btn btn-secondary">
+                        Services 🛠️
+                    </a>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <span class="project-icon">🍽️</span>
+                <h2>Al-Asalah</h2>
+                <div class="divider"></div>
+                <p>😋 Yummy Food & Good Times</p>
+                <div class="btn-group">
+                    <a href="https://restaurant-website-sooty-chi.vercel.app" class="btn btn-primary" target="_blank">
+                        Take a Look 🤤
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>💼 Let's Work Together!</h2>
+            <p class="subtitle">🌐 Websites, Apps & More</p>
+            
+            <div class="price-tag">
+                💰 From 750 AED
+            </div>
+            
+            <a href="https://wa.me/971504426398" class="whatsapp-btn" target="_blank">
+                💬 Chat on WhatsApp
+            </a>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>✉️</span>
+                    <a href="mailto:Aswany177@gmail.com">Aswany177@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    <a href="tel:+971504426398">+971 50 442 6398</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p>Made with <span class="heart">❤️</span> by AMG © 2025</p>
+        </footer>
     </div>
-    
-    <footer>
-        <p>&copy; 2025 AMG Systems. All Rights Reserved.</p>
-    </footer>
 </body>
 </html>
